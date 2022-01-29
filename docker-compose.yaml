@@ -1,0 +1,34 @@
+version: '3'
+services:
+  todoapp_api:
+    container_name: todoapp_api
+    image: fastapi-todoapp:dev
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    volumes:
+      - ./fastapi_todoapp:/app/fastapi_todoapp
+    environment:
+      DB_HOST: todoapp_db
+      DB_NAME: todoapp
+      DB_USER: admin
+      DB_PASSWORD: admin
+    depends_on: 
+      - todoapp_db
+  todoapp_db:
+    container_name: todoapp_db
+    image: mysql:8.0.28
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    volumes:
+      - todoapp-data:/var/lib/mysql
+      - ./migrations:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: todoapp
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+volumes:
+  todoapp-data:
