@@ -35,4 +35,5 @@ def delete_task(id: int, db: Session=Depends(get_db)):
     task = task_respository.get_task(db, id)
     if not task:
         raise HTTPException(status_code=404, detail="Task not found.")
-    return task_respository.delete_task(db, id)
+    task_respository.delete_task(db, id)
+    return task
