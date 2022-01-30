@@ -7,7 +7,7 @@ ENV PORT 8080
 WORKDIR $APP_HOME
 
 RUN pip install --no-cache-dir poetry
-COPY . ./
+COPY . /app/
 RUN ls -la /app
 RUN poetry install
 
