@@ -21,9 +21,12 @@ podTemplate(label: POD_LABEL, containers: [
 ]) {
     node(POD_LABEL) {
         stage('Clone Repository') {
-            sh 'echo ${params.SELECTED_TAG}'
-            sh 'echo ${SELECTED_TAG}'
-            sh 'ls -la /home/jenkins/agent/build-todoapp-backend'
+            checkout([
+                $class: 'GitSCM', 
+                branches: [[name: "refs/tags/${SELECTED_TAG}"]], 
+                extensions: [],
+                userRemoteConfigs: [[url: 'https://github.com/p-le/test-todoapp-backend.git']]
+            ])
         }
         stage('Build Image') {
             container('kaniko') {
