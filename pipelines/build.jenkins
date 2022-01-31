@@ -21,7 +21,9 @@ podTemplate(label: POD_LABEL, containers: [
 ]) {
     node(POD_LABEL) {
         stage('Clone Repository') {
-            sh 'ls -la /home/jenkins/agent'
+            sh 'echo ${params.SELECTED_TAG}'
+            sh 'echo ${SELECTED_TAG}'
+            sh 'ls -la /home/jenkins/agent/build-todoapp-backend'
         }
         stage('Build Image') {
             container('kaniko') {
