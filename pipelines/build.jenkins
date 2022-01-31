@@ -21,7 +21,7 @@ podTemplate(label: POD_LABEL, containers: [
 ]) {
     node(POD_LABEL) {
         stage('Clone Repository') {
-            sh 'ls -la .'
+            sh 'ls -la /home/jenkins/agent'
         }
         stage('Build Image') {
             container('kaniko') {
