@@ -1,0 +1,37 @@
+#!/usr/bin/env groovy
+
+def POD_LABEL   = "k8sagent-build-backend"
+def HOME        = "/home/jenkins"
+def WORKSPACE   = "${HOME}/workspace/build-todoapp-backend"
+def WORKDIR     = "${HOME}/src/github.com/p-le/test-todoapp-backend/"
+
+podTemplate(label: POD_LABEL, containers: [
+    containerTemplate(
+        name: 'kaniko',
+        image: 'gcr.io/kaniko-project/executor:debug',
+        envVars: [
+            containerEnvVar(key: 'GOOGLE_APPLICATION_CREDENTIALS', value: '/kaniko/credentials/kaniko-build-sa.json'),
+        ],
+        command: 'sleep',
+        args: '99d'
+    )
+], volumes: [
+    configMapVolume(configMapName: 'artifact-config', mountPath: '/kaniko/.docker'),
+    secretVolume(secretName: 'gcp-credentials', mountPath: '/kaniko/credentials')
+]) {
+    node(POD_LABEL) {
+        stage('Fetch Repository') {
+            git 'https://github.com/p-le/test-todoapp-backend.git'
+        }
+        stage('Select Tag') {
+            git 'https://github.com/p-le/test-todoapp-backend.git'
+        }
+        stage('Build Image') {
+            container('kaniko') {
+                ansiColor('xterm') {
+                    sh '/kaniko/executor --context=dir://./ --dockerfile=Dockerfile --destination=asia-northeast1-docker.pkg.dev/phu-le-it/devops-cicd-repository/todoapp-backend:prod'
+                }
+            }
+        }
+    }
+}
