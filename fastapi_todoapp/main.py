@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_todoapp.routers import task
 
@@ -19,3 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(task.router)
+
+@app.get('/healthz', status_code=status.HTTP_200_OK)
+def healthz():
+    return {'status': 'OK'}

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-todoapp"
-version = "1.0.0"
+version = "1.0.8"
 description = "FastAPI Backend for Todo App"
 authors = ["Phu Le <phu.le.dev@gmail.com>"]
 
