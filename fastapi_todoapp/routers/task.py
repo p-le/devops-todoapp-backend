@@ -1,3 +1,4 @@
+import os
 from typing import List
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, HTTPException, Depends
@@ -5,7 +6,9 @@ from fastapi_todoapp.schemas import task as task_schema
 from fastapi_todoapp.repositories import task as task_respository
 from fastapi_todoapp.libs.database import get_db
 
-router = APIRouter(prefix="/tasks", tags=["task"])
+ROUTE_PREFIX = os.getenv("ROUTE_PREFIX", "/apis")
+
+router = APIRouter(prefix=f"{ROUTE_PREFIX}/tasks", tags=["task"])
 
 @router.get("", response_model=List[task_schema.Task])
 async def get_tasks(db: Session=Depends(get_db)):
