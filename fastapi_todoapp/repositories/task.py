@@ -17,7 +17,6 @@ def update_task(db: Session, id: int, task_update: task_schema.TaskUpdate):
     return task
 
 def create_task(db: Session, task_create: task_schema.TaskCreate):
-    print(task_create)
     task = Task(title=task_create.title, status=task_create.status)
     db.add(task)
     db.commit()
