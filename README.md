@@ -13,9 +13,8 @@ poetry install
 ```
 docker-compose up
 ```
-API URL: http://localhost:8080/
-Examples:
-- http://localhost:8080/api/tasks
+- API URL: http://localhost:8080/
+- Examples: http://localhost:8080/api/tasks
 
 # Manual deploy to GCP Artifact Registry (For Demo)
 
