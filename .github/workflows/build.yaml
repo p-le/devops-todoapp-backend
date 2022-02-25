@@ -4,9 +4,7 @@ on:
     tags:
       - 'v*.*.*'
 env:
-  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT }}
   IMAGE_FULL_NAME: ${{ secrets.GCP_ARTIFACT_REGISTRY_LOCATION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_ARTIFACT_REGISTRY_ID }}/todoapp-backend:${{github.ref_name}}
-  MANIFEST_REPOSITORY: p-le/devops-todoapp-manifests
 
 jobs:
   setup-build-publish:
@@ -50,7 +48,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        repository: ${{ env.MANIFEST_REPOSITORY }}
+        repository: ${{ secrets.MANIFEST_REPOSITORY }}
 
     - name: Set up Kustomize
       run: |-
