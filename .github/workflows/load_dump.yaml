@@ -24,4 +24,4 @@ jobs:
       run: gsutil -m cp migrations/*.sql gs://${{ secrets.GCS_SQL_BUCKET }}
 
     - name: Load SQL Files
-      run: gcloud sql import sql ${{ secrets.DB_INSTANCE_NAME }} gs://${{ secrets.GCS_SQL_BUCKET }}/tables.sql --database=${{ secrets.DB_NAME }}
+      run: gcloud sql import sql ${{ secrets.DB_INSTANCE_NAME }} gs://${{ secrets.GCS_SQL_BUCKET }}/tables.sql --database=${{ secrets.DB_NAME }} -q
