@@ -69,7 +69,7 @@ jobs:
         commit-message: "Update Backend Image ${{github.ref_name}} | Auto-Commit"
         committer: GitHub <noreply@github.com>
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-        branch: update/manifest-files-${{ github.run_id }}
+        branch: update/backend-image-${{github.ref_name}}
         delete-branch: true
         body: |
           Update Backend Container Image
